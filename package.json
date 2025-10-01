@@ -1,0 +1,29 @@
+{
+  "name": "tiny-trader-workstation",
+  "version": "0.1.0",
+  "description": "Minimal custom trader workstation with IBKR API integration",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "nodemon server/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ibkr",
+    "trader-workstation",
+    "portfolio",
+    "pnl",
+    "reports"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "ib-controller": "^1.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
