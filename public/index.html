@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiny Trader Workstation</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <h1>📊 Tiny Trader Workstation</h1>
+      <div class="header-status">
+        <span id="connectionStatus" class="status disconnected">Disconnected</span>
+        <button id="connectBtn" class="btn btn-primary">Connect to IBKR</button>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Report Selector -->
+      <div class="report-selector">
+        <h2>Select Report</h2>
+        <div class="button-group">
+          <button class="btn btn-report active" data-report="portfolio-summary">
+            📈 Portfolio Summary
+          </button>
+          <button class="btn btn-report" data-report="pnl-comparison">
+            💹 PnL Comparison
+          </button>
+          <button class="btn btn-report" data-report="risk-exposure">
+            ⚠️ Risk Exposure
+          </button>
+        </div>
+      </div>
+
+      <!-- Report Display Area -->
+      <div class="report-container">
+        <!-- Portfolio Summary Report -->
+        <div id="portfolio-summary" class="report active">
+          <h3>Portfolio Summary</h3>
+          <div class="metrics-grid">
+            <div class="metric-card">
+              <label>Net Liquidation</label>
+              <div class="metric-value" id="netLiq">-</div>
+            </div>
+            <div class="metric-card">
+              <label>Total Cash</label>
+              <div class="metric-value" id="totalCash">-</div>
+            </div>
+            <div class="metric-card">
+              <label>Buying Power</label>
+              <div class="metric-value" id="buyingPower">-</div>
+            </div>
+          </div>
+          <div class="chart-container">
+            <canvas id="allocationChart"></canvas>
+          </div>
+          <table id="allocationTable" class="data-table">
+            <thead>
+              <tr>
+                <th>Symbol</th>
+                <th>Value</th>
+                <th>Allocation %</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <!-- PnL Comparison Report -->
+        <div id="pnl-comparison" class="report">
+          <h3>PnL Comparison</h3>
+          <div class="metrics-grid">
+            <div class="metric-card">
+              <label>Unrealized PnL</label>
+              <div class="metric-value positive" id="unrealizedPnL">-</div>
+            </div>
+            <div class="metric-card">
+              <label>Realized PnL</label>
+              <div class="metric-value" id="realizedPnL">-</div>
+            </div>
+            <div class="metric-card">
+              <label>Combined PnL</label>
+              <div class="metric-value" id="combinedPnL">-</div>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div>
+              <h4>🎯 Top Gainers</h4>
+              <table id="gainersTable" class="data-table">
+                <thead>
+                  <tr>
+                    <th>Symbol</th>
+                    <th>PnL</th>
+                    <th>%</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+            <div>
+              <h4>📉 Top Losers</h4>
+              <table id="losersTable" class="data-table">
+                <thead>
+                  <tr>
+                    <th>Symbol</th>
+                    <th>PnL</th>
+                    <th>%</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Risk Exposure Report -->
+        <div id="risk-exposure" class="report">
+          <h3>Risk Exposure</h3>
+          <div class="metrics-grid">
+            <div class="metric-card">
+              <label>Overall Risk Level</label>
+              <div class="metric-value" id="overallRisk">-</div>
+            </div>
+            <div class="metric-card">
+              <label>Max Concentration</label>
+              <div class="metric-value" id="maxConcentration">-</div>
+            </div>
+            <div class="metric-card">
+              <label>High Risk Positions</label>
+              <div class="metric-value" id="highRiskCount">-</div>
+            </div>
+          </div>
+          <table id="exposureTable" class="data-table">
+            <thead>
+              <tr>
+                <th>Symbol</th>
+                <th>Weight %</th>
+                <th>Notional Value</th>
+                <th>Risk Level</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Loading Indicator -->
+      <div id="loadingSpinner" class="loading hidden">
+        <div class="spinner"></div>
+        <p>Fetching report data...</p>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>Last Updated: <span id="lastUpdate">Never</span></p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
